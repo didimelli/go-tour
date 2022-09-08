@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	var a [2]string
@@ -65,4 +68,43 @@ func main() {
 	if n == nil {
 		fmt.Println("nil!")
 	}
+
+	// make to create dynamically sized arrays!
+	f := make([]int, 5)    // len is 5
+	g := make([]int, 0, 5) // len 0, capacity 5
+	fmt.Println(f, g)
+
+	// slice of slices
+	// tic tac toe
+	board := [][]string{
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+		[]string{"_", "_", "_"},
+	}
+	// players
+	board[0][0] = "X"
+	board[2][2] = "O"
+	board[1][2] = "X"
+	board[1][0] = "O"
+	board[0][2] = "X"
+	for i := 0; i < len(board); i++ {
+		fmt.Printf("%s\n", strings.Join(board[i], " "))
+	}
+
+	var og []int
+	printSlice(og)
+	// append works on nil
+	og = append(og, 0)
+	printSlice(og)
+	// slice grows as needed
+	og = append(og, 1)
+	printSlice(og)
+	// append more at a time
+	og = append(og, 2, 3, 4, 5)
+	printSlice(og)
+
+}
+
+func printSlice(s []int) {
+	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
 }
